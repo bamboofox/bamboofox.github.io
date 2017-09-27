@@ -62,4 +62,4 @@ kramdown:
 RSS: true
 
 # Plugins
-plugins: [jekyll-paginate,jekyll-feed]
+plugins: [jekyll-paginate,jekyll-feed,jekyll-admin]
