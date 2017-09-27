@@ -1,0 +1,11 @@
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            {% for i in site.nav %}
+            <li><a href="{{ i[1] }}">{{ i[0] }}</a></li>
+            {% endfor %}
+            <li><a href="{{ site.baseurl }}feed.xml"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+        </ul>
+    </nav>
+</header>
