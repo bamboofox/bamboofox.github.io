@@ -3,3 +3,4 @@ gem 'jekyll'
 gem 'jekyll-paginate'
 gem 'jekyll-feed'
 gem 'jekyll-admin'
+gem "github-pages"
