@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+- 2.3.3
+
+script: ./cibuild
+
+before_script:
+ - chmod +x ./cibuild
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  repo: bamboofox/bamboofox.github.io
+  local_dir: _site
+  target_branch: master
+  on:
+    branch: master
