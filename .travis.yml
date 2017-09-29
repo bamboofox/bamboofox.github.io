@@ -10,6 +10,7 @@ before_script:
 deploy:
   provider: pages
   skip_cleanup: true
+  github_token: $GITHUB_TOKEN
   repo: bamboofox/bamboofox.github.io
   local_dir: _site
   target_branch: master
