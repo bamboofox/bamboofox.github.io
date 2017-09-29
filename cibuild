@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
+set -e JEKYLL_ENV=production
 
-JEKYLL_ENV=production bundle exec jekyll build
+bundle exec jekyll build
