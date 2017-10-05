@@ -38,7 +38,7 @@ description: what the hack...
                     <div class="post-tags">
                         {% if post.tags.size > 0 %} 
                             {% for tag in post.tags limit:5  %}
-                                <a href="{{ "tags.html#" + tag | absolute_url }}" class="post-tag">{{ tag }}</a>
+                                <a href="{{ "tags.html#" | append: tag | absolute_url }}" class="post-tag">{{ tag }}</a>
                             {% endfor %}
                         {% endif %}
                         {% if post.tags.size > 5 %}
@@ -85,7 +85,7 @@ description: what the hack...
                     {% if forloop.index > site.recommend-condition-size %}
                         {% break %}
                     {% endif %}
-                    <a href="{{ "tags.html#" + tag[0] | absolute_url }}" class="tag">{{ tag[0]}}</a>
+                    <a href="{{ "tags.html#" | append: tag[0] | absolute_url }}" class="tag">{{ tag[0]}}</a>
                 {% endfor %}
             </section>
             {% endif %}
