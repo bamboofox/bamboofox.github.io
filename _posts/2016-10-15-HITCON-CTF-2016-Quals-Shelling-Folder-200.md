@@ -7,7 +7,6 @@ tags:
   - buffer overflow
   - one gadget
   - HITCON CTF 2016
-  - ''
 categories:
   - write-ups
 date: 2016-10-15

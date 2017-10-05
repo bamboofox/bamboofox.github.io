@@ -6,7 +6,6 @@ tags:
   - heap
   - shadow stack
   - ASIS CTF Finals 2016
-  - ''
 categories:
   - write-ups
 date: 2016-09-14
