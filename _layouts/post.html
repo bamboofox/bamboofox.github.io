@@ -14,7 +14,7 @@
         <div class="post-tags">
             {% if page.tags.size > 0 %} 
             {% for tag in page.tags  %}
-            <a href="{{ site.baseurl }}tags#{{ tag }}" class="post-tag">{{ tag }}</a>
+            <a href="{{ "tags#" + tag | absolute_url }}" class="post-tag">{{ tag }}</a>
             {% endfor %}
             {% endif %}
         </div>
@@ -58,7 +58,7 @@
             {% for s in site.sns %}
             <li>
                 <a href="{{ s[1] }}" target="_blank">
-                    <i class="iconfont icon-{{ s[0] }}"></i>
+                    <i class="fa fa-{{ s[0] }}"></i>
                 </a>
             </li>
             {% endfor %}
@@ -103,13 +103,6 @@
 {% include footer.html %}
 
 <script src="{{ "assets/js/social-share.min.js" | absolute_url }}"></script>
-<script>
-    socialShare('.social-share', {
-        sites: [{% for i in site.social-share-items %}'{{ i }}'{% if forloop.last == false %},{% endif %}{% endfor %}],
-        wechatQrcodeTitle: "分享到微信朋友圈",
-        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
-    });
-</script>
 <script>
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
