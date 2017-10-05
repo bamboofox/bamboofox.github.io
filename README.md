@@ -41,3 +41,27 @@ bundle exec jekyll serve --host 0.0.0.0
 ```
 
 Go to 127.0.0.1:4000/admin
+
+## Contribute
+
+If you use jekyll admin
+
+press "New metadata field" to add a column in post header
+
+Here is the sample post header
+
+```
+---
+title: hello-world
+layout: post
+author: me
+tags:
+  - food
+categories:
+  - tutorial
+---
+```
+
+`title` and `layout` are mandatory ( remember to add layout when you use jekyll admin )
+
+`author` and `tags` and `categories` are optional
