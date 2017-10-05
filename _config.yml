@@ -3,7 +3,7 @@ title: 'bamboofox official blog'
 description: 'cyber security club'
 keyword: 'bamboofox'
 url: 'https://bamboofox.github.io' # your host
-baseurl: '/'
+baseurl: ''
 
 # Navigation links
 nav:

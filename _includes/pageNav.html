@@ -1,7 +1,7 @@
 <nav class="pagination">
     <input type="hidden" id="total_pages" value="{{ paginator.total_pages }}">
     <input type="hidden" id="current_pages" value="{{ paginator.page }}">
-    <input type="hidden" id="base_url" value="{{ site.baseurl }}">
+    <input type="hidden" id="base_url" value="/{{ site.baseurl }}">
     <div class="page-links">
         {% if paginator.previous_page %}
             {% if paginator.previous_page == 1 %}
