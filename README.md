@@ -13,7 +13,7 @@ bundle install
 
 ## Local start server
 
-`jekyll serve` It will start a server at `localhost:4000`
+`bundle exec jekyll serve` It will start a server at `localhost:4000`
 
 ## Jekyll Admin
 
@@ -23,4 +23,21 @@ This plugin allow you to edit file directly in your localhost server `localhost:
 
 ## Generate static site files
 
-`jekyll build` After build complete, all the files will be under `_site`
+`bundle exec jekyll build` After build complete, all the files will be under `_site`
+
+## Docker support
+
+You can use this container https://hub.docker.com/r/jekyll/jekyll/
+
+```
+docker pull jekyll/jekyll
+docker run -it -p 127.0.0.1:4000:4000 jekyll/jekyll /bin/bash
+
+# inside container
+git clone https://github.com/bamboofox/bamboofox.github.io.git
+cd bamboofox.github.io
+bundle install
+bundle exec jekyll serve --host 0.0.0.0
+```
+
+Go to 127.0.0.1:4000/admin
