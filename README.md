@@ -65,3 +65,5 @@ categories:
 `title` and `layout` are mandatory ( remember to add layout when you use jekyll admin )
 
 `author` and `tags` and `categories` are optional
+
+**After you edit and push on github, github will automatically build the site**
