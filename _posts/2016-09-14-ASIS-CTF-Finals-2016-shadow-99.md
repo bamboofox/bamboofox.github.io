@@ -1,16 +1,17 @@
 ---
-title: '[ASIS CTF Finals 2016] shadow 99'
+title: "[ASIS CTF Finals 2016] shadow 99"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - shadow stack
-  - ASIS CTF Finals 2016
+- pwn
+- heap
+- shadow stack
+- ASIS CTF Finals 2016
 categories:
-  - write-ups
-date: 2016-09-14
+- write-ups
+date: '2016-09-14'
 layout: post
 ---
+
 ## Info
 > Category: pwn  
 > Point: 99  
@@ -36,7 +37,7 @@ glibc 的 malloc 在 size 很大的時候 (超過 0x20000)，會改用 mmap 來�
 
 之後我們可以嘗試對程式進行多次的遞迴呼叫，讓 shadow stack 不斷的 "往上長" (意即 shadow stack 的 top 位址會不斷得往前移)。只要 shadow stack 長到某一程度，就會跟我們 beer description 的 buffer 重疊在一起。此時我們再透過編輯 beer description 的功能，就可以改到 shadow stack 上的 return address，讓程式跳到我們想要的位址。這題因為只有 stack guard 的關係，可以執行 shellcode。 我們可以透過將 shellcode 塞入 name buffer，然後將 return address 改成 name buffer 位址的方式來跳 shellcode。
 
-```python exp_shadow.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

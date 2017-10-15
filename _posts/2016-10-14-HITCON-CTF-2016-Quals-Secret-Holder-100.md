@@ -1,24 +1,25 @@
 ---
-title: '[HITCON CTF 2016 Quals] Secret Holder 100'
+title: "[HITCON CTF 2016 Quals] Secret Holder 100"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - HITCON CTF 2016
-  - Use After Free
-  - unsafe unlink
-  - smallbin
-  - one gadget
-  - GOT hijacking
+- pwn
+- heap
+- HITCON CTF 2016
+- Use After Free
+- unsafe unlink
+- smallbin
+- one gadget
+- GOT hijacking
 categories:
-  - write-ups
-date: 2016-10-14
+- write-ups
+date: '2016-10-14'
 layout: post
 ---
+
 ## Info  
-> Category: pwn
-> Point: 100
-> Author: bruce30262 @ BambooFox
+> Category: pwn  
+> Point: 100  
+> Author: bruce30262 @ BambooFox  
 > 這題是比賽結束後才解出來的 :(
 
 ## Analyzing
@@ -58,7 +59,7 @@ secret 種類有三種:
 
 這裡我的做法是先將 free 改成 puts，並將 small 的 buffer 改成 `__libc_start_main@got.plt`，這樣子在 `free(small)` 的時候就可以 leak libc 的 address。之後再 hijack 任意一個 GOT 跳 [one gadget](http://j00ru.vexillium.org/blog/24_03_15/dragons_ctf.pdf)，即可拿到 shell。
 
-```python exp_secret.py
+```python
 #!/usr/bin/env python
 from pwn import *
 import subprocess

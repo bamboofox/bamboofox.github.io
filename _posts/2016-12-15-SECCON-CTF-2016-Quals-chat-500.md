@@ -1,22 +1,23 @@
 ---
-title: '[SECCON CTF 2016 Quals] chat 500'
+title: "[SECCON CTF 2016 Quals] chat 500"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - Use After Free
-  - heap overflow
-  - SECCON CTF 2016
-  - fastbin
-  - GOT hijacking
+- pwn
+- heap
+- Use After Free
+- heap overflow
+- SECCON CTF 2016
+- fastbin
+- GOT hijacking
 categories:
-  - write-ups
-date: 2016-12-15
+- write-ups
+date: '2016-12-15'
 layout: post
 ---
+
 ## Info  
-> Category: pwn
-> Point: 500
+> Category: pwn  
+> Point: 500  
 > Author: bruce30262 @ BambooFox
 
 
@@ -229,7 +230,7 @@ gdb-peda$ tel 0x60302a
 ```
 我們可以從 `0x60302a` 開始做寫入，前面先塞一些 printable 的字元填滿 `stack_chk_fail` 和 `setbuf` 的 GOT ( 這樣新 user name 的第一個字元也變成 printable 的了 ! )，之後再將 `system` 的 address 塞到 `strchr@got.plt` 裡面，即可成功 hijack `strchr` 的 GOT。
 
-```python exp_chat.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

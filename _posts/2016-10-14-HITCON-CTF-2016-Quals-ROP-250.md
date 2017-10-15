@@ -1,19 +1,20 @@
 ---
-title: '[HITCON CTF 2016 Quals] ROP 250'
+title: "[HITCON CTF 2016 Quals] ROP 250"
 author: bruce30262
 tags:
-  - Reverse
-  - Ruby
-  - HITCON CTF 2016
+- Reverse
+- Ruby
+- HITCON CTF 2016
 categories:
-  - write-ups
-  - ''
-date: 2016-10-14
+- write-ups
+- ''
+date: '2016-10-14'
 layout: post
 ---
+
 ## Info  
-> Category: Reverse
-> Point: 250
+> Category: Reverse  
+> Point: 250  
 > Solver: bruce30262 @ BambooFox   
 
 ## Analyzing
@@ -22,7 +23,7 @@ layout: post
 
 Ruby 在 2.3 版本中針對 InstructionSequence 的部分加入了一些新功能，例如 [load_from_binary 函式](http://ruby-doc.org/core-2.3.0/RubyVM/InstructionSequence.html#method-c-load_from_binary) 可以讓使用者從一個 binary 檔案當中 load 進 InstructionSequence，並做進一步的操作 (ex. 執行指令, 印出 disassemble 的內容......等)
 
-```ruby de.rb
+```ruby
 #!/usr/bin/env ruby
 # read rop.iseq, dump InstructionSequence
 f = open("rop.iseq", "rb")
@@ -168,7 +169,7 @@ end
 這部分就是硬 reverse 努力得把 code 給看懂。
 
 有了演算法之後就可以用爆的方式將 `key[2]` 給爆出來 ( 0x0000 ~ 0xffff, 最多跑 65536 次)
-```ruby crack_part3.rb
+```ruby
 def f(two17, key2, pi)
     ret = 1
     v2 = two17
@@ -219,7 +220,7 @@ end
 這邊 `prime_division` 是在做質因數分解，看到結果要等於 [53,97] 的時候其實就可以猜 `key[3]` = `53*97` = `5141` 了。原本 5141 做 prime_division 時會變成 `[ [53,1] , [97,1] ]`, 意即 `(53^1 * 97^1)`，不過因為 `&:first` 的關係，只會取到第一個元素，也就是 53 跟 97，符合 `key[3]` 的條件。雖然答案其實是 `(53^n * 97^m)`，不過考慮到數值最大只到 65536，因此符合條件的只有 `n=1, m=1` ，所以可以得知 `key[3]` = `5141`
 
 到了這邊~~其實我已經沒力了~~我們已經知道這題的 valid key 為 `7A69-ECAF-1BD2-5141-XXXX` 。第五部分 ( `key[4]` ) 的檢查由於很複雜的關係 ( 用了一些很怪的語法 )，加上其實只剩下最後一個部分的 key 沒有解出來，所以這邊我直接採取暴力破解的方式來找出 key 的最後一部分 ( 反正最多也就跑 65536 次 =w= ):
-```ruby crack_flag.rb
+```ruby
 #!/usr/bin/env ruby
 
 for i in (0..0xffff)

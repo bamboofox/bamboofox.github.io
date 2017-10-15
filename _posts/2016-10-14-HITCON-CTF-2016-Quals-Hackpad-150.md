@@ -1,22 +1,23 @@
 ---
-title: '[HITCON CTF 2016 Quals] Hackpad 150'
+title: "[HITCON CTF 2016 Quals] Hackpad 150"
 author: bruce30262
 tags:
-  - Crypto
-  - Forensic
-  - padding oracle attack
-  - HITCON CTF 2016
+- Crypto
+- Forensic
+- padding oracle attack
+- HITCON CTF 2016
 categories:
-  - write-ups
-date: 2016-10-14
+- write-ups
+date: '2016-10-14'
 layout: post
 ---
+
 ## Info  
-> Category: Crypto & Forensics
-> Point: 150
-> Solver: bruce30262 @ BambooFox
-> 這題其實是從中間接下去解的
-> 感謝其他隊友們先做出前面的的部分
+> Category: Crypto & Forensics  
+> Point: 150  
+> Solver: bruce30262 @ BambooFox  
+> 這題其實是從中間接下去解的  
+> 感謝其他隊友們先做出前面的的部分  
 
 ## Analyzing
 題目給了個 pcap 檔，要我們找出裡面的 secret。經過分析後可以從裡面抓出一些重要的資訊:
@@ -92,7 +93,7 @@ md5(decrypt(msg)) = d41d8cd98f00b204e9800998ecf8427e
 之後因為 `AES_Decrypt(C1)` = `P1(明文) ^ C0(前一個密文)`，因此可以得出 `P1` = `AES_Decrypt(C1) ^ C0`，其中 `C0` = `3ed2e01c1d1248125c67ac637384a22d`(前一個密文)
 
 按照這樣的方式就可以將 secret 給還原回來:
-```python ppp.py
+```python
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

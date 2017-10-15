@@ -1,19 +1,20 @@
 ---
-title: '[SECCON CTF 2016 Quals] checker 300'
+title: "[SECCON CTF 2016 Quals] checker 300"
 author: bruce30262
 tags:
-  - pwn
-  - buffer overflow
-  - SECCON CTF 2016
-  - stack overflow
+- pwn
+- buffer overflow
+- SECCON CTF 2016
+- stack overflow
 categories:
-  - write-ups
-date: 2016-12-15
+- write-ups
+date: '2016-12-15'
 layout: post
 ---
+
 ## Info  
-> Category: pwn
-> Point: 300
+> Category: pwn  
+> Point: 300  
 > Author: bruce30262 @ BambooFox
 
 
@@ -42,7 +43,7 @@ You are a liar...
 
 程式使用自製的函式 `getaline()` 來讀 user 的 input
 
-```c getaline
+```c
 while ( buf && read(0, &buf, 1uLL) )
 {
     if ( buf == 10 )
@@ -78,7 +79,7 @@ You are a liar...
 
 這邊要注意的是 `argv[0]` 原本是一個 stack address，長度為 6 個 byte，而 flag 的 buffer address 位於 `0x6010c0`，長度為 3 個 byte，因此在蓋 `argv[0]` 之前要先將 `argv[0]` 作清空的動作，否則之後印 error message 時會 crash 掉。
 
-```python exp_checker.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

@@ -1,18 +1,19 @@
 ---
-title: '[ASIS CTF Finals 2016] car market 177'
+title: "[ASIS CTF Finals 2016] car market 177"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - ASIS CTF Finals 2016
-  - Use After Free
-  - fastbin
-  - off-by-one
+- pwn
+- heap
+- ASIS CTF Finals 2016
+- Use After Free
+- fastbin
+- off-by-one
 categories:
-  - write-ups
-date: 2016-09-14
+- write-ups
+date: '2016-09-14'
 layout: post
 ---
+
 ## Info  
 > Category: pwn  
 > Point: 177   
@@ -25,14 +26,14 @@ layout: post
 程式主要有三個選單。一開始進入第一個選單，我們可以 add car, remove car, list car 跟 select car。select car 之後進入第二個選單，可以選擇印出 car 的 info，設定 car 的資訊以及新增一個 customer。新增 customer 時會進入第三個選單，可以設定 customer 的名字和 comment。
 
 程式主要有兩個 data structure，分別是 `car` 與 `customer`，structure 內容如下:
-```c car
+```c
 struct car{
   char model[16];
   long price;
   struct customer* customer;
 };
 ```
-```c customer
+```c
 struct customer{
   char first_name[32];
   char name[32];
@@ -97,7 +98,7 @@ customer+64  |        0x12345680| char* comment
 
 因此整理一下 leak libc address 的方法:
 
-1. 先新增幾個 `car`，讓其中一個 `car` 的 address 是以 **0xf0** 做為結尾 (ex. `0x123455f0`)，並在 `car->model` 裡面放上假的 chunk header
+1. 先新增幾個 `car`，讓其中一個 `car` 的 address 是以 `0xf0` 做為結尾 (ex. `0x123455f0`)，並在 `car->model` 裡面放上假的 chunk header
 2. 利用 off-by-one 漏洞更改某個 customer 的 comment 指標 (ex. `0x12345680` --> `0x12345600`)
 3. 離開並重新進入選單三，讓程式可以去 free 更改後的 comment 指標
 4. 再新增一個 comment，此時新的 comment buffer 會和其中一個 `car` structure 重疊，因此我們可以藉由更改 comment 的方式來偽造 `car` structure，將 `car->customer` 改成 `atoi` 的 GOT
@@ -118,7 +119,7 @@ customer+64  |        0x12345680| char* comment
 
 之後我們在輸入選項時，就可以輸入 `sh\x00`，執行 `system('sh')` 拿 shell。
 
-```python exp_car.py
+```python
 #!/usr/bin/env python
 
 from pwn import *
