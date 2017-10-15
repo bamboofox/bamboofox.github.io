@@ -1,20 +1,21 @@
 ---
-title: '[HITCON CTF 2016 Quals] flame 150'
+title: "[HITCON CTF 2016 Quals] flame 150"
 author: bruce30262
 tags:
-  - PPC
-  - PowerPC
-  - qemu
-  - Reverse
-  - HITCON CTF 2016
+- PPC
+- PowerPC
+- qemu
+- Reverse
+- HITCON CTF 2016
 categories:
-  - write-ups
-date: 2016-10-14
+- write-ups
+date: '2016-10-14'
 layout: post
 ---
+
 ## Info  
-> Category: PPC ( 個人覺得比較像 Reverse ) 
-> Point: 150
+> Category: PPC ( 個人覺得比較像 Reverse )  
+> Point: 150  
 > Solver: bruce30262 @ BambooFox   
 
 ## Analyzing
@@ -125,7 +126,7 @@ stw       r9, 0x18(r31)
 </pre>
 
 之後就是寫些程式將 flag 給 recover 回來:
-```ruby sol.rb
+```ruby
 #!/usr/bin/env ruby
 
 resp = `./test`.split("\n")
@@ -145,7 +146,7 @@ end
 puts flag
 ```
 其中 test 是個先將 random value 給 gen 好的 C 程式
-```c test.c
+```c
 #include <stdio.h>
 #include <string.h>
 #include <math.h>

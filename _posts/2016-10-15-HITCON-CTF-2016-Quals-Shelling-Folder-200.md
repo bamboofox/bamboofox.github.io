@@ -1,20 +1,21 @@
 ---
-title: '[HITCON CTF 2016 Quals] Shelling Folder 200'
+title: "[HITCON CTF 2016 Quals] Shelling Folder 200"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - buffer overflow
-  - one gadget
-  - HITCON CTF 2016
+- pwn
+- heap
+- buffer overflow
+- one gadget
+- HITCON CTF 2016
 categories:
-  - write-ups
-date: 2016-10-15
+- write-ups
+date: '2016-10-15'
 layout: post
 ---
+
 ## Info  
-> Category: pwn
-> Point: 200
+> Category: pwn  
+> Point: 200  
 > Solver: bruce30262 @ BambooFox
 
 
@@ -91,7 +92,7 @@ void cal_folder_size(struct file *cur_folder)
 最後要注意的是，`file_size` 存的值是由 `atoi` 回傳的，也就是說最多就是 4 個 byte 的 integer，因此必須要分兩次做 overwrite : 一次 overwrite 掉 `__free_hook`，另外一次 overwrite 掉 `__free_hook+4`。
 
 
-```python exp_shell.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

@@ -1,19 +1,20 @@
 ---
-title: '[DEFCON CTF 2017 Quals] peROPdo'
+title: "[DEFCON CTF 2017 Quals] peROPdo"
 author: bruce30262
 tags:
-  - pwn
-  - buffer overflow
-  - ROP
-  - file stream pointer overflow
-  - DEFCON CTF 2017
+- pwn
+- buffer overflow
+- ROP
+- file stream pointer overflow
+- DEFCON CTF 2017
 categories:
-  - write-ups
-date: 2017-05-03
+- write-ups
+date: '2017-05-03'
 layout: post
 ---
+
 ## Info  
-> Category: Potent Pwnables
+> Category: Potent Pwnables  
 > Author: bruce30262 @ BambooFox  
 
 ## Analyzing
@@ -22,8 +23,8 @@ layout: post
 程式是個簡單的骰子程式，輸入完名字後程式會問你要骰幾個骰子，輸入一個正整數後，程式會隨機產生資料，存在 `data[i]` 裡面。之後程式會輸出 `data[i] % 6 + 1`，代表這一輪我們骰的數字。
 
 這題有兩個漏洞:
-1. 輸入名字時是用 `scanf("%s", name);` 的方式讀取，造成 `name` buffer 有 overflow 的情形 (`name`位於 data 段)  
-2. 程式存資料 `data[i]` 是存在 stack 上，因此如果我們骰太多骰子的話，會造成 `data[i]` 的資料覆蓋到 return address ( stack overflow )。
+1. 輸入名字時是用  `scanf("%s", name);`  的方式讀取，造成  `name`  buffer 有 overflow 的情形 ( `name` 位於 data 段)  
+2. 程式存資料  `data[i]`  是存在 stack 上，因此如果我們骰太多骰子的話，會造成 `data[i]` 的資料覆蓋到 return address ( stack overflow )。
 
 ## Exploit
 一開始本來打算利用第二個漏洞 ( stack overflow ) 來做 exploit，不過因為 `data[i]` 的資料是隨機化的結果，我們沒辦法隨心所欲的控制 return address 的內容。
@@ -52,7 +53,7 @@ call    do_main
 * 利用 gadgets 作出 open/read/write 的 syscall，將 flag 吐出來 ( 這題有擋 `execve()` )
 
 Final exploit:
-```python exp_peropdo.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

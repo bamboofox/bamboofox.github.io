@@ -1,14 +1,15 @@
 ---
-title: '[MMA CTF 2nd 2016] Interpreter 200'
+title: "[MMA CTF 2nd 2016] Interpreter 200"
 author: bruce30262
 tags:
-  - pwn
-  - MMA CTF 2nd 2016
+- pwn
+- MMA CTF 2nd 2016
 categories:
-  - write-ups
-date: 2016-09-07
+- write-ups
+date: '2016-09-07'
 layout: post
 ---
+
 ## Info  
 > Category: pwn  
 > Point: 200  
@@ -16,10 +17,10 @@ layout: post
 
 ## Analyzing  
 首先透過 `file` 指令以及 [checksec.sh](http://www.trapkit.de/tools/checksec.html) 的幫助，我們可以知道這是一個 x86_64 的 ELF，保護全開:  
-<pre>
+```txt
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 Full RELRO      Canary found      NX enabled    PIE enabled     No RPATH   No RUNPATH   ./befunge_patch  
-</pre>
+```
 
 之後透過將程式丟入 IDA Pro 做靜態分析，以及試著執行程式，對程式行為進行簡單的動態分析之後，我們可以得知:  
 * 這是一隻 [Befunge-93](https://en.wikipedia.org/wiki/Befunge) 程式的 Interpreter。程式一開始會要求我們輸入一個 Befunge-93 程式，之後會試著解譯並執行我們的程式。  
@@ -27,7 +28,7 @@ Full RELRO      Canary found      NX enabled    PIE enabled     No RPATH   No RU
 * 程式之後會一個字元一個字元的解譯並執行我們的Befunge-93 指令，最多執行到第 10000 個指令  
  
 整理成 pseudo code 之後大概是這種感覺:  
-```C  
+```c  
 // 不重要的部分將以註解代替
 // 實際程式有做哪些事情可以自行利用 IDA Pro 進行分析
 int main()
@@ -123,7 +124,7 @@ pseudo code 將一些比較重要的功能都列在上面了。
 	* 可透過 pop_rdi --> bin_sh 字串 --> system 的方式做 ROP 來拿 shell 
 
 final exploit ( leak ld-linux.so的版本 ) :
-```python exp_bef.py
+```python
 #!/usr/bin/env python
 
 from pwn import *

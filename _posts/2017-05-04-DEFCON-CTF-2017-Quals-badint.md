@@ -1,22 +1,23 @@
 ---
-title: '[DEFCON CTF 2017 Quals] badint'
+title: "[DEFCON CTF 2017 Quals] badint"
 author: bruce30262
 tags:
-  - pwn
-  - heap
-  - heap overflow
-  - GOT hijacking
-  - fastbin corruption
-  - fastbin
-  - DEFCON CTF 2017
+- pwn
+- heap
+- heap overflow
+- GOT hijacking
+- fastbin corruption
+- fastbin
+- DEFCON CTF 2017
 categories:
-  - write-ups
-date: 2017-05-04
+- write-ups
+date: '2017-05-04'
 layout: post
 ---
+
 ## Info  
-> Category: Potent Pwnables
-> Author: bruce30262 @ BambooFox  
+> Category: Potent Pwnables  
+>  Author: bruce30262 @ BambooFox  
 > 這題是從中間接下去做的，感謝隊友先提供 idb 與 crash input 
 
 ## Analyzing
@@ -90,7 +91,7 @@ Assembled [seq: 1]: 788ba4952b7f000011111111111111111111111111111111111111111111
 SEQ #:
 ```
 
-我們將 offset 設定為 8，之後程式會將 data 複製進 `heap_buf+8`。其中，`heap_buf` 為一個被重新 allocate 的 unsortbin chunk，因此其 `fd` 跟 `bk` 均會包含 libc address ( 實際上為 `main_arena+88` )。此時我們將 data 複製進 `heap_buf` 時，只有 `bk` 會被蓋掉，因此之後程式印出 assebled 的 data 時，會將 `fd` 的內容給 leak 出來，我們就拿到了 libc 的 address。
+我們將 offset 設定為 8，之後程式會將 data 複製進 `heap_buf+8`。其中，`heap_buf` 為一個被重新 allocate 的 unsortbin chunk，因此其 `fd` 跟 `bk` 均會包含 libc address ( 實際上為 `main_arena+88` )。此時我們將 data 複製進 `heap_buf` 時，只有 `bk` 會被蓋掉，因此之後程式印出 assembled 的 data 時，會將 `fd` 的內容給 leak 出來，我們就拿到了 libc 的 address。
 
 之後要來想辦法控制程式流程。這裡我是利用 fastbin corruption 搭配 GOT hijacking 來達到這件事。首先我們想辦法排出類似下面的 heap layout:
 ```
@@ -167,7 +168,7 @@ RELRO: Partial
 
 利用 format string leak 出各個 GOT entry 之後，順利的在 [libcdb.com](http://libcdb.com/) 找到了遠端 libc 的版本。之後我們就可以將 `atol()` hijack 成 `system()`，然後輸入 "sh" 字串，呼叫 `system("sh")` 拿 shell。
 
-```python exp_bad.py
+```python
 #!/usr/bin/env python
 
 from pwn import *
