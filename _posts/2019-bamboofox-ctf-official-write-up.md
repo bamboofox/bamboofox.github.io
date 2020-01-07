@@ -15,6 +15,8 @@ authors:
   - zeze
   - lys0829
   - billy
+  - seadog007
+  - frozenkp
   - ss8650twtw
 ---
 
